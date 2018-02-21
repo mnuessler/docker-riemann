@@ -1,14 +1,19 @@
-riemann:
-  build: ./riemann
-  ports:
-    - "5555:5555"
-    - "5555:5555/udp"
-    - "5556:5556"
-  command: -a start
+version: '2'
 
-riemann-dash:
-  build: ./riemann-dash
-  ports:
-    - "4567:4567"
-  links:
-    - riemann
+services:
+  riemann:
+    build: ./riemann
+    ports:
+      - "5555:5555"
+      - "5555:5555/udp"
+      - "5556:5556"
+    command: -a start
+
+  riemann-dash:
+    build: ./riemann-dash
+    ports:
+      - "4567:4567"
+    links:
+      - riemann
+    depends_on:
+      - riemann
